@@ -1,0 +1,13 @@
+.Correct{
+    color: rgb(112, 217, 255);
+    font-weight: bold;
+}
+
+.Incorrect{
+    color: rgb(255, 124, 43);
+    font-weight: bold;
+}
+
+.Disabled{
+    color: rgb(206, 206, 206);
+}

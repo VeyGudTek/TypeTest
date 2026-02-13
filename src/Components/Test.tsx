@@ -1,6 +1,7 @@
-import { pages, type BasicCallback, type PageOption } from "@Models/.";
+import { pages, type BasicCallback, type PageOption, type LetterStatus } from "@Models/.";
 import "@CSS/Test.css";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Letter } from "./Letter";
 
 interface TestProps{
     navigateBack: BasicCallback,
@@ -13,22 +14,22 @@ export function Test(props: TestProps){
     const [ input, setInput ] = useState("");
     const [ started, setStarted ] = useState(false);
 
-    useEffect(() => {
-        const onKeyDown = (event:KeyboardEvent) => {
-            if (event.key.length === 1){
-                setInput(input + event.key);
-                if (!started){
-                    setStarted(true);
-                }
-            }
-            if (event.key === "Backspace"){
-                setInput(input.slice(0, input.length - 1))
+    const onKeyDown = useCallback((event:KeyboardEvent) => {
+        if (event.key.length === 1){
+            setInput(prevInput => prevInput + event.key);
+            if (!started){
+                setStarted(true);
             }
         }
+        if (event.key === "Backspace"){
+            setInput(input.slice(0, input.length - 1))
+        }
+    }, [])
 
+    useEffect(() => {
         addEventListener("keydown", onKeyDown)
         return () => removeEventListener("keydown", onKeyDown)
-    }, []);
+    }, [onkeydown]);
 
     useEffect(() => {
         let id:number | undefined = undefined;
@@ -42,13 +43,13 @@ export function Test(props: TestProps){
         return () => clearInterval(id);
     }, [started])
     
-    const testText = useMemo(() => {
+    const prompt = useMemo(() => {
         const letterSet = pages[pageOption].letterSet;
         const wordCount = 25;
         let text = "";
 
         for(let i = 0; i < wordCount; i++){
-            const range = 5;
+            const range = 7;
             const offset = 2;
             const wordLength = offset + Math.round(Math.random() * range)
 
@@ -62,19 +63,42 @@ export function Test(props: TestProps){
         }
 
         return text;
-    }, [pageOption]);
+    }, [pageOption]); 
 
+    const testResults = useMemo(() => {
+        const testResults:Map<number, LetterStatus> = new Map();
+
+        for(let i = 0; i < prompt.length; i++){
+            if (i > input.length - 1){
+                testResults.set(i, "disabled");
+            }
+            else if (input[i] === prompt[i]){
+                testResults.set(i, "correct");
+            }
+            else{
+                testResults.set(i, "incorrect");
+            }
+        }
+
+        console.log(testResults);
+        return testResults
+    }, [prompt, input])
+
+    const wpm = useMemo(() => {
+        return Array.from(testResults.values()).filter(s => s === "correct").length;
+    }, [testResults, time])
 
     return (<div className="TestContainer">
         <button className="BackButton" onClick={() => navigateBack()}>Go home</button>
         <div className="TestHeader">
-            <div className="Timer">{pages[pageOption].display}</div>
-            <div className="WPM">{pages[pageOption].display}</div>
+            <div className="Timer">Time: {time.toFixed(1)}</div>
+            <div className="WPM">WPM: {wpm.toFixed(1)}</div>
         </div>
         <div className="Timer"></div>
         <div className="Prompt">
-            {testText}
+            {Array.from(testResults).map(([index, status]) => (
+                <Letter letter={prompt[index]} status={status} key={index}></Letter>
+            ))}
         </div>
-        {time.toFixed(1)}
     </div>);
 }
