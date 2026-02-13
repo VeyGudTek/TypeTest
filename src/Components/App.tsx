@@ -1,11 +1,14 @@
+import type { PageOption } from '@Models/Page'
 import { useState } from 'react'
+import { Select, Test } from '@Components/.';
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [currPage, setCurrPage] = useState<PageOption>("home");
 
   return (
     <div className="app">
-      wow
+      {currPage === "home" && <Select nagivate0={() => setCurrPage("0")}/>}
+      {currPage === "0" && <Test pageOption={"0"} navigateBack={() => setCurrPage("home")}/>}
     </div>
   )
 }
