@@ -22,7 +22,7 @@ export function Test(props: TestProps){
             }
         }
         if (event.key === "Backspace"){
-            setInput(input.slice(0, input.length - 1))
+            setInput(prevInput => prevInput.slice(0, prevInput.length - 1))
         }
     }, [])
 
@@ -86,6 +86,10 @@ export function Test(props: TestProps){
     const wpm = useMemo(() => {
         const correctLetters = Array.from(testResults.values()).filter(s => s === "correct").length;
         const minutes = time / 60;
+
+        if (minutes === 0){
+            return 0;
+        }
 
         return (correctLetters / 5) / minutes;
     }, [testResults, time])
