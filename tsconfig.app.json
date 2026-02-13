@@ -25,7 +25,9 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@Components/*": ["src/Components/*"]
+      "@Components/*": ["src/Components/*"],
+      "@CSS/*": ["src/CSS/*"],
+      "@Models/*": ["src/Models/*"]
     }
   },
   "include": ["src"]
