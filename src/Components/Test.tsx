@@ -80,12 +80,14 @@ export function Test(props: TestProps){
             }
         }
 
-        console.log(testResults);
         return testResults
     }, [prompt, input])
 
     const wpm = useMemo(() => {
-        return Array.from(testResults.values()).filter(s => s === "correct").length;
+        const correctLetters = Array.from(testResults.values()).filter(s => s === "correct").length;
+        const minutes = time / 60;
+
+        return (correctLetters / 5) / minutes;
     }, [testResults, time])
 
     return (<div className="TestContainer">
