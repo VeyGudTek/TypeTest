@@ -1,5 +1,6 @@
-import { tests, type Navigator } from "@Models/.";
+import { tests, type Navigator, type TestOption } from "@Models/.";
 import "@CSS/Select.css";
+import { useMemo } from "react";
 
 interface SelectProps{
     navigator: Navigator
@@ -8,16 +9,20 @@ interface SelectProps{
 export function Select(props: SelectProps){
     const { navigator } = props;
 
+    const testKeys:TestOption[] = useMemo(() => {
+        return Object.keys(tests) as TestOption[];
+    }, [tests])
+
     return(<div className="SelectContainer">
         <div className="SelectTitle">
             Select Typing Test
         </div>
         <div className="ButtonGrid">
-            <button className="SelectButton" onClick={() => navigator("0")}>{tests["0"].display}</button>
-            <button className="SelectButton" onClick={() => navigator("0")}>{tests["0"].display}</button>
-            <button className="SelectButton" onClick={() => navigator("0")}>{tests["0"].display}</button>
-            <button className="SelectButton" onClick={() => navigator("0")}>{tests["0"].display}</button>
-            <button className="SelectButton" onClick={() => navigator("0")}>{tests["0"].display}</button>
+            {testKeys.map((option) => 
+                <button className="SelectButton" onClick={() => navigator(option)} key={option}>
+                    {tests[option].display}
+                </button>
+            )}
         </div>
     </div>);
 }
