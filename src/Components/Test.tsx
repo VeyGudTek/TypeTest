@@ -1,15 +1,15 @@
-import { pages, type BasicCallback, type PageOption, type LetterDto } from "@Models/.";
+import { tests, type Navigator, type LetterDto, type TestOption } from "@Models/.";
 import "@CSS/Test.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Letter } from "./Letter";
 
 interface TestProps{
-    navigateBack: BasicCallback,
-    pageOption: PageOption
+    navigator: Navigator,
+    testOption: TestOption
 }
 
 export function Test(props: TestProps){
-    const { pageOption, navigateBack } = props;
+    const { testOption, navigator } = props;
     const [ time, setTime ] = useState(0);
     const [ input, setInput ] = useState("");
     const [ started, setStarted ] = useState(false);
@@ -44,7 +44,7 @@ export function Test(props: TestProps){
     }, [started])
     
     const prompt = useMemo(() => {
-        const letterSet = pages[pageOption].letterSet;
+        const letterSet = tests[testOption].letterSet;
         const wordCount = 25;
         let text = "";
 
@@ -63,7 +63,7 @@ export function Test(props: TestProps){
         }
 
         return text;
-    }, [pageOption]); 
+    }, [testOption]); 
 
     const testResults = useMemo(() => {
         const testResults:LetterDto[] = [];
@@ -108,7 +108,7 @@ export function Test(props: TestProps){
     }, [testResults, time])
 
     return (<div className="TestContainer">
-        <button className="BackButton" onClick={() => navigateBack()}>Go home</button>
+        <button className="BackButton" onClick={() => navigator("home")}>Go home</button>
         <div className="TestHeader">
             <div className="Timer">Time: {time.toFixed(1)}</div>
             <div className="WPM">WPM: {wpm.toFixed(1)}</div>
