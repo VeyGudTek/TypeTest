@@ -1,4 +1,4 @@
-import type { BasicCallback, PageOption } from "@Models/.";
+import { pages, type PageOption } from "@Models/.";
 import "@CSS/Select.css";
 
 interface SelectProps{
@@ -13,11 +13,11 @@ export function Select(props: SelectProps){
             Select Typing Test
         </div>
         <div className="ButtonGrid">
-            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
-            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
-            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
-            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
-            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>{pages["0"].display}</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>{pages["0"].display}</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>{pages["0"].display}</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>{pages["0"].display}</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>{pages["0"].display}</button>
         </div>
     </div>);
 }
