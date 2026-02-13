@@ -15,9 +15,14 @@ export function Test(props: TestProps){
 
     useEffect(() => {
         const onKeyDown = (event:KeyboardEvent) => {
-            setInput(event.key);
-            if (!started){
-                setStarted(true);
+            if (event.key.length === 1){
+                setInput(input + event.key);
+                if (!started){
+                    setStarted(true);
+                }
+            }
+            if (event.key === "Backspace"){
+                setInput(input.slice(0, input.length - 1))
             }
         }
 
@@ -36,10 +41,6 @@ export function Test(props: TestProps){
 
         return () => clearInterval(id);
     }, [started])
-
-    useEffect(() => {
-        
-    }, []);
     
     const testText = useMemo(() => {
         const letterSet = pages[pageOption].letterSet;
