@@ -3,9 +3,13 @@
     font-weight: bold;
 }
 
-.Incorrect{
+.Incorrect, .Extra{
     color: rgb(255, 124, 43);
     font-weight: bold;
+}
+
+.Extra{
+    text-decoration: line-through;
 }
 
 .Disabled{

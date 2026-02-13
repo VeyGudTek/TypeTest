@@ -1,4 +1,4 @@
-import { pages, type BasicCallback, type PageOption, type LetterStatus } from "@Models/.";
+import { pages, type BasicCallback, type PageOption, type LetterDto } from "@Models/.";
 import "@CSS/Test.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Letter } from "./Letter";
@@ -59,32 +59,45 @@ export function Test(props: TestProps){
                 text += letter;
             }
 
-            text += " ";
+            text += (i !== wordCount - 1) ? " " : "";
         }
 
         return text;
     }, [pageOption]); 
 
     const testResults = useMemo(() => {
-        const testResults:Map<number, LetterStatus> = new Map();
+        const testResults:LetterDto[] = [];
 
         for(let i = 0; i < prompt.length; i++){
+            const currentLetter = input[i];
+            const currentPrompt = prompt[i];
+
             if (i > input.length - 1){
-                testResults.set(i, "disabled");
+                testResults.push({status:"disabled", character:currentPrompt});
             }
-            else if (input[i] === prompt[i]){
-                testResults.set(i, "correct");
+            else if (currentLetter === currentPrompt){
+                testResults.push({status:"correct", character:currentPrompt});
             }
             else{
-                testResults.set(i, "incorrect");
+                if (currentPrompt === " "){
+                    testResults.push({status:"extra", character:currentLetter});
+                    testResults.push({status:"incorrect", character:" "});
+                }
+                else{
+                    testResults.push({status:"incorrect", character:currentPrompt});
+                }
             }
+        }
+
+        for(let i = prompt.length; i < input.length; i++){
+            testResults.push({status:"extra", character:input[i]});
         }
 
         return testResults
     }, [prompt, input])
 
     const wpm = useMemo(() => {
-        const correctLetters = Array.from(testResults.values()).filter(s => s === "correct").length;
+        const correctLetters = Array.from(testResults.values()).filter(l => l.status === "correct").length;
         const minutes = time / 60;
 
         if (minutes === 0){
@@ -102,8 +115,8 @@ export function Test(props: TestProps){
         </div>
         <div className="Timer"></div>
         <div className="Prompt">
-            {Array.from(testResults).map(([index, status]) => (
-                <Letter letter={prompt[index]} status={status} key={index}></Letter>
+            {testResults.map((dto, index) => (
+                <Letter letter={dto.character} status={dto.status} key={index}></Letter>
             ))}
         </div>
     </div>);

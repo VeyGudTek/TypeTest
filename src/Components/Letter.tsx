@@ -13,5 +13,6 @@ export function Letter(props: LetterProps){
         {status === "correct" &&    <span className="Correct">{letter}</span>}
         {status === "incorrect" &&  <span className="Incorrect">{letter}</span>}
         {status === "disabled" &&   <span className="Disabled">{letter}</span>}
+        {status === "extra" &&      <span className="Extra">{letter}</span>}
     </>);
 }
