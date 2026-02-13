@@ -1,0 +1,23 @@
+.TestHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1em;
+    font-size: x-large;
+    padding: 2em;
+    width: 70%;
+    margin: auto;
+}
+
+.BackButton{
+    position: absolute;
+    font-size: large;
+    padding: .5em;
+}
+
+.Prompt{
+    text-align: center;
+    font-size: large;
+    width: 80%;
+    margin: auto;
+}
