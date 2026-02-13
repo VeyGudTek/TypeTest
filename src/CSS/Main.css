@@ -1,3 +1,21 @@
 html{
     background-color: rgb(50, 50, 50);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+button{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(50, 50, 50);
+    color: aliceblue;
+    border: 2px solid aliceblue;
+}
+
+button:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+button:active{
+    background-color: rgb(118, 118, 118);
 }

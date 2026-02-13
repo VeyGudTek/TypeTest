@@ -1,13 +1,23 @@
-import type { BasicCallback } from "@Models/.";
+import type { BasicCallback, PageOption } from "@Models/.";
+import "@CSS/Select.css";
 
 interface SelectProps{
-    nagivate0: BasicCallback
+    setPage: (page: PageOption) => void
 }
 
 export function Select(props: SelectProps){
-    const { nagivate0 } = props;
+    const { setPage } = props;
 
-    return(<>
-        <button onClick={() => nagivate0()}>go test 0</button>
-    </>);
+    return(<div className="SelectContainer">
+        <div className="SelectTitle">
+            Select Typing Test
+        </div>
+        <div className="ButtonGrid">
+            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+            <button className="SelectButton" onClick={() => setPage("0")}>go test 0</button>
+        </div>
+    </div>);
 }

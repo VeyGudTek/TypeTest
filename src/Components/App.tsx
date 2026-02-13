@@ -7,7 +7,7 @@ export function App() {
 
   return (
     <div className="app">
-      {currPage === "home" && <Select nagivate0={() => setCurrPage("0")}/>}
+      {currPage === "home" && <Select setPage={setCurrPage}/>}
       {currPage === "0" && <Test pageOption={"0"} navigateBack={() => setCurrPage("home")}/>}
     </div>
   )
