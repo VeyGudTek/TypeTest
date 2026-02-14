@@ -1,4 +1,4 @@
-import { tests, type LetterDto, type TestOption } from "@Models/.";
+import { tests, type LetterDto, type ResultsDto, type TestOption } from "@Models/.";
 
 export function GetPrompt(testOption:TestOption){
     const letterSet = tests[testOption].letterSet;
@@ -62,4 +62,35 @@ export function GetWPM(testResults:LetterDto[], time:number){
     }
 
     return (correctLetters / 5) / minutes;
+}
+
+export function GetMissedCharacters(input:string, prompt:string){
+    const missedCharacters:number[] = [];
+    
+    for(let i = 0; i < input.length; i++){
+        if (i > prompt.length - 1){
+            break;
+        }
+
+        if (input[i] !== prompt[i]){
+            missedCharacters.push(i);
+        }
+    }
+
+    return missedCharacters;
+}
+
+export function GenerateResults(time:number, missedCharacters:number[], testResults:LetterDto[]):ResultsDto{
+    return{
+        time: time,
+        missedCharacters: (new Set(missedCharacters)).size,
+        characters: testResults.filter(l => 
+                l.status === "correct" && 
+                l.character !== " "
+            ).length,
+        finalMissedCharacters: testResults.filter(l => 
+                (l.status==="extra" || l.status==="incorrect") && 
+                l.character !== " "
+            ).length
+    };
 }

@@ -1,19 +1,33 @@
-import { type Navigator, type LetterDto, type TestOption } from "@Models/.";
+import { type Navigator, type ResultSetter, type TestOption } from "@Models/.";
 import "@CSS/Test.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Letter } from "./Letter";
-import { GetPrompt, GetResults, GetWPM } from "@Functions/TestFunctions";
+import { GenerateResults, GetMissedCharacters, GetPrompt, GetResults, GetWPM } from "@Functions/TestFunctions";
 
 interface TestProps{
+    testOption: TestOption,
+    resultSetter: ResultSetter,
     navigator: Navigator,
-    testOption: TestOption
 }
 
 export function Test(props: TestProps){
-    const { testOption, navigator } = props;
+    const { testOption, navigator, resultSetter } = props;
     const [ time, setTime ] = useState(0);
     const [ input, setInput ] = useState("");
     const [ started, setStarted ] = useState(false);
+    const [missedCharacters, setMissedCharacters] = useState<number[]>([]);
+
+    const prompt = useMemo(() => {
+        return GetPrompt(testOption);
+    }, [testOption]); 
+
+    const testResults = useMemo(() => {
+        return GetResults(prompt, input);
+    }, [prompt, input])
+
+    const wpm = useMemo(() => {
+        return GetWPM(testResults, time);
+    }, [testResults, time])
 
     const onKeyDown = useCallback((event:KeyboardEvent) => {
         if (event.key.length === 1){
@@ -25,7 +39,7 @@ export function Test(props: TestProps){
         if (event.key === "Backspace"){
             setInput(prevInput => prevInput.slice(0, prevInput.length - 1))
         }
-    }, [])
+    }, [setInput, setStarted])
 
     useEffect(() => {
         addEventListener("keydown", onKeyDown)
@@ -42,19 +56,22 @@ export function Test(props: TestProps){
         }
 
         return () => clearInterval(id);
-    }, [started])
+    }, [started, setTime])
+
+    useEffect(() => {
+        const currentMissedCharacters = GetMissedCharacters(input, prompt);
+
+        setMissedCharacters(prevChar => prevChar.concat(currentMissedCharacters));
+    }, [input, prompt, setMissedCharacters])
     
-    const prompt = useMemo(() => {
-        return GetPrompt(testOption);
-    }, [testOption]); 
+    useEffect(() => {
+        if (input.length > prompt.length && input[input.length - 1] === " "){
+            const results = GenerateResults(time, missedCharacters, testResults);
 
-    const testResults = useMemo(() => {
-        return GetResults(prompt, input);
-    }, [prompt, input])
-
-    const wpm = useMemo(() => {
-        return GetWPM(testResults, time);
-    }, [testResults, time])
+            resultSetter(results);
+            navigator("results");
+        }
+    }, [input, prompt, time, missedCharacters, testResults])
 
     return (<div className="TestContainer">
         <button className="BackButton" onClick={() => navigator("home")}>Go home</button>
