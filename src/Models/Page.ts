@@ -1,6 +1,7 @@
 export type PageOption = "home" | "results" | 
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" |
-    "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19"| "20" | "21";
+    "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19"| "20" | "21" | "22" |
+    "23" | "24" | "25" | "26" | "27" | "27" | "28" | "29";
 
 export type TestOption = Exclude<PageOption, "home" | "results">;
 type TestType = "Left" | "Right" | "Both";
@@ -118,9 +119,49 @@ export const tests:Record<TestOption, TestData> = {
         letterSet: ["h", "j", "k", "l", ";", "y", "u", "i", "o", "p", "n", "m", ",", ".", "/"]
     },
     "21":{
+        display: ["y uiop", "h jkl", "n m"],
+        type: "Right",
+        letterSet: ["h", "j", "k", "l", "y", "u", "i", "o", "p", "n", "m"]
+    },
+    "22":{
         display: ["7890-=", "jkl;"],
         type: "Right",
         letterSet: ["7", "8", "9", "0", "-", "=", "j", "k", "l", ";"]
+    },
+    "23":{
+        display: ["asdf gh jkl;"],
+        type: "Both",
+        letterSet: ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"]
+    },
+    "24":{
+        display: ["qwer ty uiop"],
+        type: "Both",
+        letterSet: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+    },
+    "25":{
+        display: ["zxcv bn m,./"],
+        type: "Both",
+        letterSet: ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+    },
+    "26":{
+        display: ["qwer ty uiop", "asdf gh jkl;"],
+        type: "Both",
+        letterSet: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";"]
+    },
+    "27":{
+        display: ["asdf gh jkl;", "zxcv b nm,./"],
+        type: "Both",
+        letterSet: ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+    },
+    "28":{
+        display: ["qwer ty uiop", "asdf gh jkl;", "zxcv bn m,./"],
+        type: "Both",
+        letterSet: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+    },
+    "29":{
+        display: ["123456 7890-=", "asdf jkl;"],
+        type: "Both",
+        letterSet: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "a", "s", "d", "f", "j", "k", "l", ";"]
     }
 }
 
