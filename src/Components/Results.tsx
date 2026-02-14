@@ -8,7 +8,9 @@ interface ResultsProps{
 
 export function Results(props: ResultsProps){
     const { results, onBack } = props;
-    const { time, characters, missedCharacters, finalMissedCharacters } = results;
+    const { time, correctCharacters, missedCharacters, finalMissedCharacters } = results;
+
+    const totalCharacters = correctCharacters + finalMissedCharacters;
 
     return(<div className="ResultsContainer">
         {results === undefined && <span>Error: Results were not set. Developer failed to account for an existing workflow.</span>}
@@ -25,19 +27,19 @@ export function Results(props: ResultsProps){
                     </div>
                     <div className="StatsResultSingle">
                         <div className="StatsResultSingleHeader">Characters</div>
-                        <div className="StatsResultSingleValue">{characters}</div>
+                        <div className="StatsResultSingleValue">{correctCharacters}</div>
                     </div>
                     <div className="StatsResultSingle">
                         <div className="StatsResultSingleHeader">Words</div>
-                        <div className="StatsResultSingleValue">{characters / 5}</div>
+                        <div className="StatsResultSingleValue">{correctCharacters / 5}</div>
                     </div>
                                         <div className="StatsResultSingle">
                         <div className="StatsResultSingleHeader">Characters Per Minute</div>
-                        <div className="StatsResultSingleValue">{((characters / time) * 60).toFixed(1)}</div>
+                        <div className="StatsResultSingleValue">{((correctCharacters / time) * 60).toFixed(1)}</div>
                     </div>
                     <div className="StatsResultSingle">
                         <div className="StatsResultSingleHeader">Words Per Minute</div>
-                        <div className="StatsResultSingleValue">{(((characters / 5) / time) * 60).toFixed(1)}</div>
+                        <div className="StatsResultSingleValue">{(((correctCharacters / 5) / time) * 60).toFixed(1)}</div>
                     </div>
                 </div>
                 <div className="StatsHeader">
@@ -46,11 +48,19 @@ export function Results(props: ResultsProps){
                 <div className="StatsResults">
                     <div className="StatsResultSingle">
                         <div className="StatsResultSingleHeader">Typoes</div>
-                        <div className="StatsResultSingleValue">{`${missedCharacters}/${characters} (%${(missedCharacters / characters).toFixed(1)})`}</div>
+                        <div className="StatsResultSingleValue">{`${missedCharacters}/${totalCharacters}`}</div>
                     </div>
                     <div className="StatsResultSingle">
-                        <div className="StatsResultSingleHeader">Incorrect Characters</div>
-                        <div className="StatsResultSingleValue">{`${finalMissedCharacters}/${characters} (%${(finalMissedCharacters / characters).toFixed(1)})`}</div>
+                        <div className="StatsResultSingleHeader">Typo Rate</div>
+                        <div className="StatsResultSingleValue">{`%${((missedCharacters / totalCharacters) * 100).toFixed(1)}`}</div>
+                    </div>
+                    <div className="StatsResultSingle">
+                        <div className="StatsResultSingleHeader">Correct Characters</div>
+                        <div className="StatsResultSingleValue">{`${correctCharacters}/${totalCharacters}`}</div>
+                    </div>
+                    <div className="StatsResultSingle">
+                        <div className="StatsResultSingleHeader">Character Completion</div>
+                        <div className="StatsResultSingleValue">{`%${(100 - ((finalMissedCharacters / totalCharacters) * 100)).toFixed(1)}`}</div>
                     </div>
                 </div>
             </div>

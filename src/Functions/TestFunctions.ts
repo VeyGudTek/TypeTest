@@ -85,7 +85,7 @@ export function GenerateResults(time:number, missedCharacters:number[], testResu
     return{
         time: time,
         missedCharacters: (new Set(missedCharacters)).size,
-        characters: testResults.filter(l => l.status === "correct").length,
+        correctCharacters: testResults.filter(l => l.status === "correct").length,
         finalMissedCharacters: testResults.filter(l => l.status==="incorrect").length
     };
 }

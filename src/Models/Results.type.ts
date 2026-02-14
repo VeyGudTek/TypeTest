@@ -1,6 +1,6 @@
 export interface ResultsDto{
     time:number;
-    characters:number;
+    correctCharacters:number;
     missedCharacters:number;
     finalMissedCharacters:number;
 }
