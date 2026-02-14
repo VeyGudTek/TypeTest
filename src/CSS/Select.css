@@ -12,6 +12,7 @@
 .ButtonGrid{
     width: 80%;
     margin: auto;
+    margin-bottom: 3em;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;

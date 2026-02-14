@@ -1,4 +1,7 @@
-export type PageOption = "home" | "results" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+export type PageOption = "home" | "results" | 
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" |
+    "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19"| "20" | "21";
+
 export type TestOption = Exclude<PageOption, "home" | "results">;
 type TestType = "Left" | "Right" | "Both";
 
@@ -63,6 +66,61 @@ export const tests:Record<TestOption, TestData> = {
         display: ["123456", "asdf"],
         type: "Left",
         letterSet: ["a", "s", "d", "f", "1", "2", "3", "4", "5", "6"]
+    },
+    "11":{
+        display: ["jkl;"],
+        type: "Right",
+        letterSet: ["j", "k", "l", ";"]
+    },
+    "12":{
+        display: ["uiop"],
+        type: "Right",
+        letterSet: ["u", "i", "o", "p"]
+    },
+    "13":{
+        display: ["m,./"],
+        type: "Right",
+        letterSet: ["m", ",", ".", "/"]
+    },
+    "14":{
+        display: ["uiop", "jkl;"],
+        type: "Right",
+        letterSet: ["j", "k", "l", ";", "u", "i", "o", "p"]
+    },
+    "15":{
+        display: ["jkl;", "m,./"],
+        type: "Right",
+        letterSet: ["j", "k", "l", ";", "m", ",", ".", "/"]
+    },
+    "16":{
+        display: ["uiop", "jkl;", "m,./"],
+        type: "Right",
+        letterSet: ["u", "i", "o", "p", "j", "k", "l", ";", "m", ",", ".", "/"]
+    },
+    "17":{
+        display: ["h jkl;"],
+        type: "Right",
+        letterSet: ["h", "j", "k", "l", ";"]
+    },
+    "18":{
+        display: ["y uiop"],
+        type: "Right",
+        letterSet: ["y", "u", "i", "o", "p"]
+    },
+    "19":{
+        display: ["n m,./"],
+        type: "Right",
+        letterSet: ["n", "m", ",", ".", "/"]
+    },
+    "20":{
+        display: ["y uiop", "h jkl;", "n m,./"],
+        type: "Right",
+        letterSet: ["h", "j", "k", "l", ";", "y", "u", "i", "o", "p", "n", "m", ",", ".", "/"]
+    },
+    "21":{
+        display: ["7890-=", "jkl;"],
+        type: "Right",
+        letterSet: ["7", "8", "9", "0", "-", "=", "j", "k", "l", ";"]
     }
 }
 

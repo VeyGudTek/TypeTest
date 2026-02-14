@@ -1,4 +1,4 @@
-import { LeftHandTests, tests, type Navigator } from "@Models/.";
+import { LeftHandTests, RightHandTests, tests, type Navigator } from "@Models/.";
 import "@CSS/Select.css";
 import { Display } from "./Display";
 
@@ -18,6 +18,16 @@ export function Select(props: SelectProps){
         </div>
         <div className="ButtonGrid">
             {LeftHandTests.map((option) => 
+                <button className="SelectButton" onClick={() => navigator(option)} key={option}>
+                    <Display display={tests[option].display}/>
+                </button>
+            )}
+        </div>
+        <div className="SelectHeader">
+            Right Hand Tests
+        </div>
+        <div className="ButtonGrid">
+            {RightHandTests.map((option) => 
                 <button className="SelectButton" onClick={() => navigator(option)} key={option}>
                     <Display display={tests[option].display}/>
                 </button>
