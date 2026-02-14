@@ -1,17 +1,15 @@
-import type { ResultsDto, ResultSetter, Navigator } from "@Models/.";
+import type { ResultsDto, Navigator } from "@Models/.";
 import { Results } from "./Results";
 
 interface ResultsContainerProps{
     results?:ResultsDto;
-    resultSetter:ResultSetter;
     navigator:Navigator;
 }
 
 export function ResultsContainer(props: ResultsContainerProps){
-    const { results, resultSetter, navigator } = props;
+    const { results, navigator } = props;
 
     const onBack = () => {
-        resultSetter(undefined);
         navigator("home");
     }
 
