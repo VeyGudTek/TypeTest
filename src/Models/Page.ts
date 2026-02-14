@@ -1,10 +1,10 @@
 export type PageOption = "home" | "results" | 
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" |
     "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19"| "20" | "21" | "22" |
-    "23" | "24" | "25" | "26" | "27" | "27" | "28" | "29";
+    "23" | "24" | "25" | "26" | "27" | "27" | "28" | "29" | "30" | "31" | "32";
 
 export type TestOption = Exclude<PageOption, "home" | "results">;
-type TestType = "Left" | "Right" | "Both";
+type TestType = "Left" | "Right" | "Both" | "Special";
 
 export interface TestData{
     display: string[];
@@ -162,9 +162,25 @@ export const tests:Record<TestOption, TestData> = {
         display: ["123456 7890-=", "asdf jkl;"],
         type: "Both",
         letterSet: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "a", "s", "d", "f", "j", "k", "l", ";"]
+    },
+    "30":{
+        display: ['!@#$%^', 'asdf'],
+        type: "Special",
+        letterSet: ["!", "@", "#", "$", "%", "^", "a", "s", "d", "f"]
+    },
+    "31":{
+        display: ['&*()_+', 'jkl:"', '<>?'],
+        type: "Special",
+        letterSet: ["&", "*", "(", ")", "_", "+", "j", "k", "l", ":", '"', "<", ">", "?"]
+    },
+    "32":{
+        display: ['!@#$%^ &*()_+', 'asdf jkl:"', '<>?'],
+        type: "Special",
+        letterSet: ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "a", "s", "d", "f", "j", "k", "l", ":", '"', "<", ">", "?"]
     }
 }
 
 export const LeftHandTests = Object.keys(tests).filter(k => tests[k as TestOption].type === "Left") as TestOption[];
 export const RightHandTests = Object.keys(tests).filter(k => tests[k as TestOption].type === "Right") as TestOption[];
 export const BothHandTests = Object.keys(tests).filter(k => tests[k as TestOption].type === "Both") as TestOption[];
+export const SpecialTests = Object.keys(tests).filter(k => tests[k as TestOption].type === "Special") as TestOption[];
