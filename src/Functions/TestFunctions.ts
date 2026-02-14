@@ -2,7 +2,7 @@ import { tests, type LetterDto, type ResultsDto, type TestOption } from "@Models
 
 export function GetPrompt(testOption:TestOption){
     const letterSet = tests[testOption].letterSet;
-    const wordCount = 3;
+    const wordCount = 15;
     let text = "";
 
     for(let i = 0; i < wordCount; i++){
