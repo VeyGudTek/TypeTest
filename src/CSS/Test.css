@@ -9,12 +9,6 @@
     margin: auto;
 }
 
-.BackButton{
-    position: absolute;
-    font-size: large;
-    padding: .5em;
-}
-
 .Prompt{
     text-align: center;
     font-size: xx-large;

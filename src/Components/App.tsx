@@ -8,7 +8,7 @@ export function App() {
 
   return (
     <div className="app">
-      {currPage === "home" &&                   <Select navigator={setCurrPage}/>}
+      {currPage === "home" &&                   <Select results={results} navigator={setCurrPage}/>}
       {currPage === "results" &&                <ResultsContainer results={results} navigator={setCurrPage}/>}
       {Object.keys(tests).includes(currPage) && <Test testOption={currPage as TestOption} resultSetter={setResults} navigator={setCurrPage}/>}
     </div>

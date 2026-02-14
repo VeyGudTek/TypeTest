@@ -1,15 +1,17 @@
-import { LeftHandTests, RightHandTests, tests, type Navigator } from "@Models/.";
+import { LeftHandTests, RightHandTests, tests, type Navigator, type ResultsDto } from "@Models/.";
 import "@CSS/Select.css";
 import { Display } from "./Display";
 
 interface SelectProps{
+    results?: ResultsDto
     navigator: Navigator
 }
 
 export function Select(props: SelectProps){
-    const { navigator } = props;
+    const { results, navigator } = props;
 
     return(<div className="SelectContainer">
+        {results !== undefined && <button className="BackButton" onClick={() => navigator("results")}>Previous Test Results</button>}
         <div className="SelectTitle">
             Select Typing Test
         </div>
