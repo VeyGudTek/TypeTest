@@ -3,16 +3,18 @@ import "@CSS/Letter.css";
 
 interface LetterProps{
     letter:string;
-    status:LetterStatus
+    status:LetterStatus;
+    lastInput:boolean;
 }
 
 export function Letter(props: LetterProps){
-    const { letter, status } = props;
+    const { letter, status, lastInput } = props;
+    const className = `${status} ${lastInput ? "lastInput" : ""}`
 
     return (<>
-        {status === "correct" &&    <span className="Correct">{letter}</span>}
-        {status === "incorrect" &&  <span className="Incorrect">{letter}</span>}
-        {status === "disabled" &&   <span className="Disabled">{letter}</span>}
-        {status === "extra" &&      <span className="Extra">{letter}</span>}
+        {status === "correct" &&    <span className={className}>{letter}</span>}
+        {status === "incorrect" &&  <span className={className}>{letter}</span>}
+        {status === "disabled" &&   <span className={className}>{letter}</span>}
+        {status === "extra" &&      <span className={className}>{letter}</span>}
     </>);
 }

@@ -1,17 +1,21 @@
-.Correct{
+.correct{
     color: rgb(112, 217, 255);
     font-weight: bold;
 }
 
-.Incorrect, .Extra{
+.incorrect, .extra{
     color: rgb(255, 124, 43);
     font-weight: bold;
 }
 
-.Extra{
+.extra{
     text-decoration: line-through;
 }
 
-.Disabled{
+.disabled{
     color: rgb(206, 206, 206);
+}
+
+.lastInput{
+    border-right: solid white 2px;
 }

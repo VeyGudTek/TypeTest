@@ -82,7 +82,7 @@ export function Test(props: TestProps){
         <div className="Timer"></div>
         <div className="Prompt">
             {testResults.map((dto, index) => (
-                <Letter letter={dto.character} status={dto.status} key={index}></Letter>
+                <Letter letter={dto.character} status={dto.status} lastInput={dto.lastInput} key={index}></Letter>
             ))}
         </div>
     </div>);

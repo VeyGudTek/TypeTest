@@ -28,26 +28,27 @@ export function GetResults(prompt:string, input:string){
     for(let i = 0; i < prompt.length; i++){
         const currentLetter = input[i];
         const currentPrompt = prompt[i];
+        const lastInput = i === input.length - 1;
 
         if (i > input.length - 1){
-            testResults.push({status:"disabled", character:currentPrompt});
+            testResults.push({status:"disabled", character:currentPrompt, lastInput: lastInput});
         }
         else if (currentLetter === currentPrompt){
-            testResults.push({status:"correct", character:currentPrompt});
+            testResults.push({status:"correct", character:currentPrompt, lastInput: lastInput});
         }
         else{
             if (currentPrompt === " "){
-                testResults.push({status:"extra", character:currentLetter});
-                testResults.push({status:"incorrect", character:" "});
+                testResults.push({status:"extra", character:currentLetter, lastInput: false});
+                testResults.push({status:"incorrect", character:" ", lastInput: lastInput});
             }
             else{
-                testResults.push({status:"incorrect", character:currentPrompt});
+                testResults.push({status:"incorrect", character:currentPrompt, lastInput: lastInput});
             }
         }
     }
 
     for(let i = prompt.length; i < input.length; i++){
-        testResults.push({status:"extra", character:input[i]});
+        testResults.push({status:"extra", character:input[i], lastInput: false});
     }
 
     return testResults;
