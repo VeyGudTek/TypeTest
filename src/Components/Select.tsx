@@ -1,6 +1,7 @@
 import { tests, type Navigator, type TestOption } from "@Models/.";
 import "@CSS/Select.css";
 import { useMemo } from "react";
+import { Display } from "./Display";
 
 interface SelectProps{
     navigator: Navigator
@@ -20,7 +21,7 @@ export function Select(props: SelectProps){
         <div className="ButtonGrid">
             {testKeys.map((option) => 
                 <button className="SelectButton" onClick={() => navigator(option)} key={option}>
-                    {tests[option].display}
+                    <Display display={tests[option].display}/>
                 </button>
             )}
         </div>
