@@ -27,7 +27,8 @@
     "paths": {
       "@Components/*": ["src/Components/*"],
       "@CSS/*": ["src/CSS/*"],
-      "@Models/*": ["src/Models/*"]
+      "@Models/*": ["src/Models/*"],
+      "@Functions/*": ["src/Functions/*"],
     }
   },
   "include": ["src"]
