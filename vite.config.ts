@@ -4,7 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/TypeTest/",
+  base: "https://veygudtek.github.io/TypeTest/",
   resolve:{
     alias:{
       "@Components": path.resolve(__dirname, './src/Components'),
