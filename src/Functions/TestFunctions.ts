@@ -2,7 +2,7 @@ import { tests, type LetterDto, type ResultsDto, type TestOption } from "@Models
 
 export function GetPrompt(testOption:TestOption){
     const letterSet = tests[testOption].letterSet;
-    const wordCount = 25;
+    const wordCount = 3;
     let text = "";
 
     for(let i = 0; i < wordCount; i++){
@@ -84,13 +84,7 @@ export function GenerateResults(time:number, missedCharacters:number[], testResu
     return{
         time: time,
         missedCharacters: (new Set(missedCharacters)).size,
-        characters: testResults.filter(l => 
-                l.status === "correct" && 
-                l.character !== " "
-            ).length,
-        finalMissedCharacters: testResults.filter(l => 
-                (l.status==="extra" || l.status==="incorrect") && 
-                l.character !== " "
-            ).length
+        characters: testResults.filter(l => l.status === "correct").length,
+        finalMissedCharacters: testResults.filter(l => l.status==="incorrect").length
     };
 }
