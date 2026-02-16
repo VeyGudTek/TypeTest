@@ -15,3 +15,10 @@
     width: 60%;
     margin: auto;
 }
+
+.EndPrompt{
+    font-style: italic;
+    font-size: large;
+    text-align: center;
+    padding: 3em;
+}

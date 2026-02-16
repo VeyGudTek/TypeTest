@@ -85,5 +85,8 @@ export function Test(props: TestProps){
                 <Letter letter={dto.character} status={dto.status} lastInput={dto.lastInput} key={index}></Letter>
             ))}
         </div>
+        {input.length >= prompt.length && <div className="EndPrompt">
+            Press Space to Finish Test
+        </div>}
     </div>);
 }
